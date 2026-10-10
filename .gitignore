@@ -1,0 +1,4 @@
+*.pem
+*.ppk
+.last-ami-id
+*.log

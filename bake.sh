@@ -5,7 +5,8 @@
 # failure) the instance shuts itself down, so the AMI is created from a stopped,
 # consistent disk and no manual waiting is needed.
 set -euxo pipefail
-trap 'shutdown -h now' EXIT
+exec > >(tee -a /var/log/bake.log) 2>&1     # keep a copy of everything, inside the image
+trap 'echo "bake exit code: $?"; sync; shutdown -h now' EXIT
 
 WEB_ROOT=/var/www/html
 
